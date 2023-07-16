@@ -138,20 +138,20 @@ app.put("/users/:id", (req, res) => {
   }
 });
 
-app.post("/users/:id/:movieTitle", (req, res) => {
+app.patch("/users/:id/fav/:movieTitle", (req, res) => {
   const { id, movieTitle } = req.params;
 
   let user = users.find((user) => user.id == id);
 
   if (user) {
     user.favoriteMovies.push(movieTitle);
-    res.status(200).send(`${movieTitle} has been added to user ${id}'s array `);
+    res.status(200).json(user);
   } else {
     res.status(400).send("no such user");
   }
 });
 
-app.delete("/users/:id/:movieTitle", (req, res) => {
+app.delete("/users/:id/fav/:movieTitle", (req, res) => {
   const { id, movieTitle } = req.params;
 
   let user = users.find((user) => user.id == id);
@@ -160,9 +160,7 @@ app.delete("/users/:id/:movieTitle", (req, res) => {
     user.favoriteMovies = user.favoriteMovies.filter(
       (title) => title !== movieTitle
     );
-    res
-      .status(200)
-      .send(`${movieTitle} has been removed from user ${id}'s array `);
+    res.status(200).json(user);
   } else {
     res.status(400).send("no such user");
   }
@@ -175,7 +173,11 @@ app.delete("/users/:id", (req, res) => {
 
   if (user) {
     users = users.filter((user) => user.id != id);
-    res.status(200).send(`User ${id} has been deleted`);
+    res
+      .status(200)
+      .send(
+        `User ${user.name.toUpperCase()} with id:${user.id} has been deleted`
+      );
   } else {
     res.status(400).send("no such user");
   }

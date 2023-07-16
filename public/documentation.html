@@ -23,6 +23,7 @@
                     <th scope="col">Request Methods</th>
                     <th scope="col">Endpoints</th>
                     <th scope="col">Response</th>
+                    <th scope="col">Body</th>
                 </tr>
             </thead>
             <tbody>
@@ -31,48 +32,61 @@
                     <td>POST</td>
                     <td>/users</td>
                     <td>New posted user</td>
+                    <td>{
+                        "name": "Hyseni",
+                        "favoriteMovies": "Inception"
+                        }</td>
                 </tr>
                 <tr>
                     <th scope="row">2</th>
                     <td>PUT</td>
                     <td>/users/:id</td>
                     <td>Updated user name</td>
+                    <td>{
+                        "name": "Alban"
+                        }</td>
                 </tr>
                 <tr>
                     <th scope="row">3</th>
                     <td>POST</td>
                     <td>/users/:id/:movieTitle</td>
                     <td>Add to favorites movie list</td>
+                    <td></td>
                 </tr>
                 <tr>
                     <th scope="row">4</th>
                     <td>DELETE</td>
                     <td>/users/:id/:movieTitle</td>
                     <td>Deleted from favorites list</td>
+                    <td></td>
                 </tr>
                 <tr>
                     <th scope="row">5</th>
                     <td>DELETE</td>
                     <td>/users/:id</td>
                     <td>Shows list without this deleted user</td>
+                    <td></td>
                 </tr>
                 <tr>
                     <th scope="row">6</th>
                     <td>GET</td>
                     <td>/movies</td>
                     <td>Shows list of all movies</td>
+                    <td></td>
                 </tr>
                 <tr>
                     <th scope="row">7</th>
                     <td>GET</td>
                     <td>/movies/genre/:genreName</td>
                     <td>Shows the genre object</td>
+                    <td></td>
                 </tr>
                 <tr>
                     <th scope="row">8</th>
                     <td>GET</td>
                     <td>/movies/directors/:directorName</td>
                     <td>Shows the director's name and bio</td>
+                    <td></td>
                 </tr>
             </tbody>
         </table>
