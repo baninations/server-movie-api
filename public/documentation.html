@@ -31,61 +31,73 @@
                     <th scope="row">1</th>
                     <td>POST</td>
                     <td>/users</td>
-                    <td>New posted user</td>
+                    <td>JSON response of the created user</td>
                     <td>{
-                        "name": "Hyseni",
-                        "favoriteMovies": "Inception"
+                        "Username": "Fry",
+                        "Password": "Leela",
+                        "Email": "Fry@leela.com",
+                        "Birthday": "1980-01-01"
                         }</td>
                 </tr>
                 <tr>
                     <th scope="row">2</th>
                     <td>PUT</td>
-                    <td>/users/:id</td>
-                    <td>Updated user name</td>
+                    <td>/users/:_id</td>
+                    <td>JSON response of the updated user</td>
                     <td>{
-                        "name": "Alban"
+                        "Username": "Bender",
+                        "Password": "Leela",
+                        "Email": "Fry@leela.com",
+                        "Birthday": "1980-01-01"
                         }</td>
                 </tr>
                 <tr>
                     <th scope="row">3</th>
                     <td>POST</td>
-                    <td>/users/:id/:movieTitle</td>
-                    <td>Add to favorites movie list</td>
+                    <td>/users/:Username/movies/:MovieID</td>
+                    <td>Full JSON response of updated favorite movie list</td>
                     <td></td>
                 </tr>
                 <tr>
                     <th scope="row">4</th>
                     <td>DELETE</td>
-                    <td>/users/:id/:movieTitle</td>
-                    <td>Deleted from favorites list</td>
+                    <td>/users/:Username</td>
+                    <td>Name of user deleted</td>
                     <td></td>
                 </tr>
                 <tr>
                     <th scope="row">5</th>
                     <td>DELETE</td>
-                    <td>/users/:id</td>
-                    <td>Shows list without this deleted user</td>
+                    <td>/users/:Username/movies/:MovieID</td>
+                    <td>Full JSON response with updated favoires movie list</td>
                     <td></td>
                 </tr>
                 <tr>
                     <th scope="row">6</th>
                     <td>GET</td>
                     <td>/movies</td>
-                    <td>Shows list of all movies</td>
+                    <td>JSON response of all movies</td>
                     <td></td>
                 </tr>
                 <tr>
                     <th scope="row">7</th>
                     <td>GET</td>
-                    <td>/movies/genre/:genreName</td>
-                    <td>Shows the genre object</td>
+                    <td>/movies/:Title</td>
+                    <td>JSON response of the movie</td>
                     <td></td>
                 </tr>
                 <tr>
                     <th scope="row">8</th>
                     <td>GET</td>
-                    <td>/movies/directors/:directorName</td>
-                    <td>Shows the director's name and bio</td>
+                    <td>/movies/genre/:GenreName</td>
+                    <td>JSON response of the Genre</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th scope="row">9</th>
+                    <td>GET</td>
+                    <td>/movies/director/:Director</td>
+                    <td>JSON response of the director</td>
                     <td></td>
                 </tr>
             </tbody>
