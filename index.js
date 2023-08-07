@@ -31,13 +31,10 @@ const passport = require("passport"); // JWT Authentification
 require("./passport");
 
 // mongoose.connect("mongodb://127.0.0.1:27017/myFlixDB", {
-mongoose.connect(
-  "mongodb+srv://myFlixDBAdmin:mdXsf24nG4kuvTsy@myflixdb.qkqrxpf.mongodb.net/?retryWrites=true&w=majority",
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  }
-);
+mongoose.connect(process.env.CONNECTION_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 app.use(bodyParser.json());
 app.use(express.static("public"));
@@ -248,5 +245,5 @@ app.delete(
 const port = process.env.CONNECTION_URI || 8080;
 
 app.listen(port, "0.0.0.0", () => {
-  console.log("Listening on port: " + port);
+  console.log("Listening on Port " + port);
 });
