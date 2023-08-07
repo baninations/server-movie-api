@@ -40,6 +40,10 @@ app.use(bodyParser.json());
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true })); // new
 
+app.get("/", (req, res) => {
+  res.send("Welcome to my movie app.");
+});
+
 // Creates a new User
 app.post(
   "/users",
