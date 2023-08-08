@@ -31,6 +31,7 @@ const passport = require("passport"); // JWT Authentification
 require("./passport");
 
 // mongoose.connect("mongodb://127.0.0.1:27017/myFlixDB", {
+
 mongoose.connect(process.env.CONNECTION_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
