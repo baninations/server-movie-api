@@ -48,7 +48,10 @@ app.get("/", (req, res) => {
 app.post(
   "/users",
   [
-    check("Username", "Username is required").isLength({ min: 5 }),
+    check(
+      "Username",
+      "Username is required to have minimum 5 characters"
+    ).isLength({ min: 5 }),
     check(
       "Username",
       "Username contains non alphanumeric characters - not allowed"
