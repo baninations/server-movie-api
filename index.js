@@ -8,7 +8,12 @@ const express = require("express"),
   Users = Models.user,
   { check, validationResult } = require("express-validator");
 cors = require("cors");
-let allowedOrigins = ["http://localhost:8080", "http://testsite.com"];
+let allowedOrigins = [
+  "http://localhost:8080",
+  "http://testsite.com",
+  "http://localhost:1234",
+  "https://localhost:1234",
+];
 
 app.use(
   cors({
