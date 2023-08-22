@@ -14,6 +14,7 @@ let allowedOrigins = [
   "http://localhost:1234",
   "https://localhost:1234",
   "https://localhost:49838",
+  "http://localhost:49838",
 ];
 
 app.use(
@@ -47,7 +48,7 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true })); // new
 
 app.get("/", (req, res) => {
-  res.send("Welcome to my movie app.");
+  res.send("Welcome to my movie app. 23.08/12:49");
 });
 
 // Creates a new User
