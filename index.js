@@ -9,12 +9,14 @@ const express = require("express"),
   { check, validationResult } = require("express-validator");
 cors = require("cors");
 let allowedOrigins = [
-  "http://localhost:8080",
-  "http://testsite.com",
-  "http://localhost:1234",
-  "https://localhost:1234",
-  "https://localhost:49838",
-  "http://localhost:49838",
+  "*",
+  // "http://localhost:8080",
+  // "http://testsite.com",
+  // "http://localhost:1234",
+  // "https://localhost:1234",
+  // "https://localhost:49838",
+  // "http://localhost:49838",
+  // "http://localhost:54190",
 ];
 
 app.use(
@@ -32,7 +34,6 @@ app.use(
   })
 );
 
-app.use(cors());
 let auth = require("./auth")(app); // Login HTML Authentification
 const passport = require("passport"); // JWT Authentification
 require("./passport");
