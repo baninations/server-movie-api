@@ -10,27 +10,33 @@ const express = require("express"),
 cors = require("cors");
 let allowedOrigins = [
   "*",
-  // "http://localhost:8080",
-  // "http://testsite.com",
-  // "http://localhost:1234",
-  // "https://localhost:1234",
-  // "https://localhost:49838",
-  // "http://localhost:49838",
-  // "http://localhost:54190",
+  "http://localhost:8080",
+  "http://testsite.com",
+  "http://localhost:1234",
+  "https://localhost:1234",
+  "https://localhost:49838",
+  "http://localhost:49838",
+  "http://localhost:54190",
 ];
+
+// app.use(
+//   cors({
+//     origin: (origin, callback) => {
+//       if (!origin) return callback(null, true);
+//       if (allowedOrigins.indexOf(origin) === -1) {
+//         let message =
+//           "The CORS policy for this application doesn’t allow access from origin " +
+//           origin;
+//         return callback(new Error(message), false);
+//       }
+//       return callback(null, true);
+//     },
+//   })
+// );
 
 app.use(
   cors({
-    origin: (origin, callback) => {
-      if (!origin) return callback(null, true);
-      if (allowedOrigins.indexOf(origin) === -1) {
-        let message =
-          "The CORS policy for this application doesn’t allow access from origin " +
-          origin;
-        return callback(new Error(message), false);
-      }
-      return callback(null, true);
-    },
+    origin: "*",
   })
 );
 
@@ -49,7 +55,7 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true })); // new
 
 app.get("/", (req, res) => {
-  res.send("Welcome to my movie app. 23.08/12:49");
+  res.send("Welcome to my movie app.");
 });
 
 // Creates a new User
