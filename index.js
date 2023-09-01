@@ -177,12 +177,13 @@ app.put(
   "/users/:_id",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
+    let hashedPassword = Users.hashPassword(req.body.Password); // added line zazzy
     await Users.findOneAndUpdate(
       { _id: req.params._id },
       {
         $set: {
           Username: req.body.Username,
-          Password: req.body.Password,
+          Password: hashedPassword, // changed this line zazzy
           Email: req.body.Email,
           Birthday: req.body.Birthday,
         },
