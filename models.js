@@ -18,7 +18,7 @@ let movieSchema = mongoose.Schema({
 });
 
 let userSchema = mongoose.Schema({
-  _id: { type: String },
+  // _id: { type: String }, // added
   Username: { type: String, required: true },
   Password: { type: String, required: true },
   Email: { type: String, required: true },
