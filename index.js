@@ -171,12 +171,27 @@ app.get(
       });
   }
 );
-//getUser
+// //getUser
+// app.get(
+//   "users/:_id",
+//   passport.authenticate("jwt", { session: false }),
+//   async (res, req) => {
+//     await Users.findOne({ _id: req.params_id })
+//       .then((user) => {
+//         res.json(user);
+//       })
+//       .catch((err) => {
+//         console.error(err);
+//         res.status(500).send("Error: " + err);
+//       });
+//   }
+// );
+
 app.get(
-  "users/:_id",
+  "/users/:_id",
   passport.authenticate("jwt", { session: false }),
-  async (res, req) => {
-    await Users.findOne({ _id: req.params_id })
+  async (req, res) => {
+    await Users.findOne({ _id: req.params._id })
       .then((user) => {
         res.json(user);
       })
