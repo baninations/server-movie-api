@@ -7,7 +7,7 @@ const express = require("express"),
   Movies = Models.Movie,
   Users = Models.user,
   { check, validationResult } = require("express-validator");
-// cors = require("cors");
+cors = require("cors");
 // let allowedOrigins = [
 //   "*",
 //   "http://localhost:8080",
