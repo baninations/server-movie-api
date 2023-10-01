@@ -17,6 +17,7 @@ let allowedOrigins = [
   "https://localhost:49838",
   "http://localhost:49838",
   "http://localhost:54190",
+  "http://localhost:4200",
 ];
 
 // app.use(
