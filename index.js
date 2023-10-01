@@ -37,7 +37,8 @@ let allowedOrigins = [
 
 app.use(
   cors({
-    origin: "*",
+    // origin: "*",
+    allowedOrigins,
   })
 );
 
