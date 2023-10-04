@@ -237,7 +237,7 @@ app.put(
   async (req, res) => {
     let hashedPassword = Users.hashPassword(req.body.Password);
     await Users.findOneAndUpdate(
-      { _id: req.params.Username },
+      { Username: req.params.Username },
       {
         $set: {
           Username: req.body.Username,
