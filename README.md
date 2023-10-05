@@ -44,10 +44,3 @@ The myFlix Express.js API is the server-side component of the myFlix movie appli
 - `routes/` - API route handlers.
 - `public/` - Static files (if any).
 
-## Contributing
-
-Feel free to contribute to this project by opening issues or submitting pull requests. Your feedback and contributions are welcome.
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).
