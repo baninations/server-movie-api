@@ -1,6 +1,3 @@
-/**
- * Required dependencies and setup
- */
 const express = require("express"),
   app = express(),
   bodyParser = require("body-parser"),
@@ -10,79 +7,86 @@ const express = require("express"),
   Movies = Models.Movie,
   Users = Models.user,
   { check, validationResult } = require("express-validator");
-const cors = require("cors");
+cors = require("cors");
+// let allowedOrigins = [
+//   "*",
+//   "http://localhost:8080",
+//   "http://testsite.com",
+//   "http://localhost:1234",
+//   "https://localhost:1234",
+//   "https://localhost:49838",
+//   "http://localhost:49838",
+//   "http://localhost:54190",
+//   "http://localhost:4200",
+// ];
 
-/**
- * Allow requests from all origins (CORS)
- */
 app.use(
   cors({
     origin: "*",
   })
 );
 
-/**
- * Establish a connection to the MongoDB database
- */
+// app.use(
+//   cors({
+//     origin: (origin, callback) => {
+//       if (!origin) return callback(null, true);
+//       if (allowedOrigins.indexOf(origin) === -1) {
+//         let message =
+//           "The CORS policy for this application doesn’t allow access from origin " +
+//           origin;
+//         return callback(new Error(message), false);
+//       }
+//       return callback(null, true);
+//     },
+//   })
+// );
+
+let auth = require("./auth")(app); // Login HTML Authentification
+const passport = require("passport"); // JWT Authentification
+require("./passport");
+
+// mongoose.connect("mongodb://127.0.0.1:27017/myFlixDB", {
 mongoose.connect(process.env.CONNECTION_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
 
-/**
- * Middleware for parsing incoming JSON requests
- */
 app.use(bodyParser.json());
-
-/**
- * Serve static files from the "public" directory
- */
 app.use(express.static("public"));
+app.use(bodyParser.urlencoded({ extended: true })); // new
 
-/**
- * Middleware for parsing URL-encoded form data from incoming requests
- */
-app.use(bodyParser.urlencoded({ extended: true }));
-
-/**
- * Default route - Welcome message
- */
 app.get("/", (req, res) => {
   res.send("Welcome to my movie app.");
 });
 
-/**
- * Create a new User
- */
+// Creates a new User
 app.post(
   "/users",
   [
     check(
       "Username",
-      "Username is required to have a minimum of 5 characters"
+      "Username is required to have minimum 5 characters"
     ).isLength({ min: 5 }),
     check(
       "Username",
-      "Username contains non-alphanumeric characters - not allowed"
+      "Username contains non alphanumeric characters - not allowed"
     ).isAlphanumeric(),
     check("Password", "Password is required").not().isEmpty(),
     check("Email", "Email does not appear to be valid").isEmail(),
   ],
   async (req, res) => {
-    // Validation check
     let errors = validationResult(req);
+
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() });
     }
 
-    // Hash the password
     let hashedPassword = Users.hashPassword(req.body.Password);
     await Users.findOne({ Username: req.body.Username })
       .then((user) => {
         if (user) {
-          return res.status(400).send(req.body.Username + " already exists");
+          return res.status(400).send(req.body.Username + "already exists");
         } else {
-          // Create a new user
           Users.create({
             Username: req.body.Username,
             Password: hashedPassword,
@@ -105,9 +109,7 @@ app.post(
   }
 );
 
-/**
- * GET all movies
- */
+//GET all movies
 app.get(
   "/movies",
   passport.authenticate("jwt", { session: false }),
@@ -123,16 +125,14 @@ app.get(
   }
 );
 
-/**
- * GET movie by title
- */
+// GET movie by title
 app.get(
   "/movies/:Title",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
     await Movies.findOne({ Title: req.params.Title })
-      .then((movie) => {
-        res.json(movie);
+      .then((movies) => {
+        res.json(movies);
       })
       .catch((err) => {
         console.error(err);
@@ -141,16 +141,14 @@ app.get(
   }
 );
 
-/**
- * GET data about a genre
- */
+// GET data about a genre
 app.get(
   "/movies/genre/:GenreName",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
     await Movies.findOne({ "Genre.Name": req.params.GenreName })
-      .then((genre) => {
-        res.json(genre.Genre);
+      .then((genreName) => {
+        res.json(genreName.Genre);
       })
       .catch((err) => {
         console.error(err);
@@ -159,16 +157,14 @@ app.get(
   }
 );
 
-/**
- * GET data about a director
- */
+// GET data about a director
 app.get(
   "/movies/director/:Director",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
     await Movies.findOne({ "Director.Name": req.params.Director })
-      .then((director) => {
-        res.json(director.Director);
+      .then((directorName) => {
+        res.json(directorName.Director);
       })
       .catch((err) => {
         console.error(err);
@@ -177,9 +173,6 @@ app.get(
   }
 );
 
-/**
- * GET user by ID
- */
 app.get(
   "/users/:_id",
   passport.authenticate("jwt", { session: false }),
@@ -195,9 +188,7 @@ app.get(
   }
 );
 
-/**
- * Update user information
- */
+// Updates user information
 app.put(
   "/users/:_id",
   passport.authenticate("jwt", { session: false }),
@@ -225,9 +216,6 @@ app.put(
   }
 );
 
-/**
- * Update user information by Username
- */
 app.put(
   "/users/:Username",
   passport.authenticate("jwt", { session: false }),
@@ -255,9 +243,7 @@ app.put(
   }
 );
 
-/**
- * Add a movie to a user's Favorites list
- */
+// Adds a movie to users Favorites list
 app.post(
   "/users/:Username/movies/:MovieID",
   passport.authenticate("jwt", { session: false }),
@@ -279,9 +265,7 @@ app.post(
   }
 );
 
-/**
- * Delete a user
- */
+// Deletes user
 app.delete(
   "/users/:Username",
   passport.authenticate("jwt", { session: false }),
@@ -301,9 +285,7 @@ app.delete(
   }
 );
 
-/**
- * Delete a movie from a user's Favorites list
- */
+// Deletes movie from favorites list
 app.delete(
   "/users/:Username/movies/:MovieID",
   passport.authenticate("jwt", { session: false }),
@@ -325,9 +307,6 @@ app.delete(
   }
 );
 
-/**
- * Start the server
- */
 const port = process.env.PORT || 8080;
 app.listen(port, "0.0.0.0", () => {
   console.log("Listening on Port " + port);
