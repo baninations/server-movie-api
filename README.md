@@ -1,8 +1,19 @@
 # myFlix Express.js API
 
+## Live: https://movies-flix-al-f68cdd84f041.herokuapp.com/movies
+
 ## Description
 
 The myFlix Express.js API is the server-side component of the myFlix movie application. This API handles user registration and authentication, as well as provides access to movie information, director details, and genre data. It is designed to work in conjunction with the myFlix Angular client-side application.
+
+## Technologies used
+- Javascript
+- Node JS
+- Express JS
+- MongoDB
+- REST API
+- JWT Authentication
+- Heroku
 
 ## Endpoints
 
